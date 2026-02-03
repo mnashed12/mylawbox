@@ -28,6 +28,6 @@ yarn-error.log*
 Thumbs.db
 
 # Build
-build/
+# build/  (commented out to deploy React build to PythonAnywhere)
 dist/
 *.egg-info/
