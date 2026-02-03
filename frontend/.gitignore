@@ -9,7 +9,7 @@
 /coverage
 
 # production
-/build
+# /build  (commented out to deploy build folder to PythonAnywhere)
 
 # misc
 .DS_Store
