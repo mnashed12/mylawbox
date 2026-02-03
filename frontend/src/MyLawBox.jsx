@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useAuth } from './useAuth';
 
 // ============================================
 // MYLAWBOX - CLEAN, USER-FRIENDLY BUILD
@@ -80,6 +81,7 @@ const translations = {
 };
 
 export default function MyLawBox() {
+  const { user: authUser, loading, signUp, signIn, signOut } = useAuth();
   const [lang, setLang] = useState('en');
   const t = translations[lang];
   
@@ -90,9 +92,10 @@ export default function MyLawBox() {
   const [activeNav, setActiveNav] = useState('home');
   const [showNotifications, setShowNotifications] = useState(false);
   const [toast, setToast] = useState(null); // For email confirmation toast
+  const [authError, setAuthError] = useState(null);
   
   const [user, setUser] = useState({
-    firstName: '', lastName: '', phone: '', email: '',
+    firstName: '', lastName: '', phone: '', email: '', password: '',
     accidentMonth: '', accidentDay: '', accidentYear: '',
     scheduledTime: null, scheduledDate: null,
   });
@@ -201,6 +204,7 @@ export default function MyLawBox() {
     else if (!/^[\d\s\-\(\)]{10,}$/.test(user.phone)) errors.phone = t.invalidPhone;
     if (!user.email.trim()) errors.email = t.required;
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(user.email)) errors.email = t.invalidEmail;
+    if (!user.password || user.password.length < 6) errors.password = 'Password must be at least 6 characters';
     if (!user.accidentMonth || !user.accidentDay || !user.accidentYear) errors.accidentDate = t.required;
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
@@ -1716,7 +1720,7 @@ export default function MyLawBox() {
     { label: 'Thursday, Feb 4', slots: ['10:00 AM', '2:00 PM', '4:30 PM'] },
   ];
 
-  const handleSignupNext = () => {
+  const handleSignupNext = async () => {
     if (signupStep === 1 && validateForm()) {
       // Send welcome email
       sendEmailNotification('SIGNUP_STARTED', {
@@ -1737,13 +1741,28 @@ export default function MyLawBox() {
       });
       setSignupStep(3);
     } else if (signupStep === 3) {
+      // Create Supabase account
+      const { data, error } = await signUp(user.email, user.password);
+      
+      if (error) {
+        setAuthError(error.message);
+        setToast('Error creating account. Please try again.');
+        setTimeout(() => setToast(null), 3000);
+        return;
+      }
+      
       // Send account created email
       sendEmailNotification('ACCOUNT_CREATED', {
         name: `${user.firstName} ${user.lastName}`,
         email: user.email
       });
-      setScreen('dashboard');
-      setActiveNav('home');
+      
+      setToast('Account created! Please check your email to verify your account.');
+      setTimeout(() => {
+        setToast(null);
+        setScreen('dashboard');
+        setActiveNav('home');
+      }, 3000);
     }
   };
 
@@ -1802,6 +1821,7 @@ export default function MyLawBox() {
                   </div>
                   <Input label={t.phone} icon="📱" placeholder="(555) 123-4567" name="phone" autoComplete="tel" value={user.phone} onChange={(e) => setUser({...user, phone: e.target.value})} error={formErrors.phone} />
                   <Input label={t.email} icon="✉️" type="email" placeholder="maria@email.com" name="email" autoComplete="email" value={user.email} onChange={(e) => setUser({...user, email: e.target.value})} error={formErrors.email} />
+                  <Input label="Password" icon="🔒" type="password" placeholder="Create a password" name="password" autoComplete="new-password" value={user.password} onChange={(e) => setUser({...user, password: e.target.value})} error={formErrors.password} />
                   
                   {/* Custom Date Picker */}
                   <div>
