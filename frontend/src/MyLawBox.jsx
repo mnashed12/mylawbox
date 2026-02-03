@@ -704,7 +704,7 @@ export default function MyLawBox() {
             </div>
           </div>
 
-          {/* Treatment  */}
+          {/* Treatment */}
           <div className="bg-white rounded-2xl p-5 border border-amber-100">
             <div className="flex items-center justify-between mb-3">
               <p className="font-semibold text-gray-900">Doctor Visits</p>
@@ -730,7 +730,7 @@ export default function MyLawBox() {
   };
 
   // ============================================
-  // MILESTONE SCREEN - COMPREHENSIVE
+  // MILESTONE SCREEN - COMPREHENSIVEE
   // ============================================
   const MilestoneScreen = ({ number }) => {
     const [saving, setSaving] = useState(false);
