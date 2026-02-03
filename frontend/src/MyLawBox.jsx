@@ -350,6 +350,9 @@ export default function MyLawBox() {
             <button onClick={() => setLang(lang === 'en' ? 'es' : 'en')} className="px-3 py-1.5 text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
               {lang === 'en' ? 'Español' : 'English'}
             </button>
+            <button onClick={() => setScreen('login')} className="px-4 py-2 text-sm font-medium text-white/90 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
+              Log In
+            </button>
             <button onClick={() => setScreen('signup')} className="bg-white text-amber-600 px-5 py-2 rounded-xl font-bold text-sm hover:bg-amber-50 transition-colors shadow-lg">
               Get Started Free
             </button>
@@ -1781,6 +1784,80 @@ export default function MyLawBox() {
       )}
       
       {screen === 'landing' && <LandingPage />}
+      
+      {screen === 'login' && (
+        <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50 flex items-center justify-center px-4">
+          <div className="w-full max-w-md">
+            <div className="bg-white rounded-2xl shadow-xl p-8">
+              <div className="text-center mb-8">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-amber-100 rounded-2xl mb-4">
+                  <span className="text-3xl">⚖️</span>
+                </div>
+                <h1 className="text-2xl font-bold text-gray-900 mb-2">Welcome back</h1>
+                <p className="text-gray-600">Log in to continue your case</p>
+              </div>
+
+              {authError && (
+                <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm">
+                  {authError}
+                </div>
+              )}
+
+              <form className="space-y-4" onSubmit={async (e) => {
+                e.preventDefault();
+                setAuthError(null);
+                const { error } = await signIn(user.email, user.password);
+                if (error) {
+                  setAuthError(error.message);
+                } else {
+                  setScreen('dashboard');
+                  setActiveNav('home');
+                }
+              }}>
+                <Input 
+                  label="Email" 
+                  icon="✉️" 
+                  type="email" 
+                  placeholder="your@email.com" 
+                  name="email" 
+                  autoComplete="email" 
+                  value={user.email} 
+                  onChange={(e) => setUser({...user, email: e.target.value})} 
+                  required
+                />
+                <Input 
+                  label="Password" 
+                  icon="🔒" 
+                  type="password" 
+                  placeholder="Enter your password" 
+                  name="password" 
+                  autoComplete="current-password" 
+                  value={user.password} 
+                  onChange={(e) => setUser({...user, password: e.target.value})} 
+                  required
+                />
+                
+                <button type="submit" className="w-full bg-amber-500 text-white font-bold py-3.5 rounded-xl hover:bg-amber-600 transition-colors shadow-lg">
+                  Log In
+                </button>
+              </form>
+
+              <div className="mt-6 text-center">
+                <p className="text-gray-600 text-sm">
+                  Don't have an account?{' '}
+                  <button onClick={() => setScreen('signup')} className="text-amber-600 font-semibold hover:text-amber-700">
+                    Sign up
+                  </button>
+                </p>
+              </div>
+
+              <button onClick={() => setScreen('landing')} className="mt-4 w-full text-gray-500 text-sm hover:text-gray-700">
+                ← Back to home
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       
       {screen === 'signup' && (
         <div className="min-h-screen bg-warm">
