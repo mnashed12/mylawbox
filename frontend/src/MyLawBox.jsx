@@ -80,6 +80,15 @@ const translations = {
   }
 };
 
+// Input component - defined outside to prevent re-creation on each render
+const Input = ({ label, error, icon, autoComplete, name, ...props }) => (
+  <div>
+    <label className="block text-sm font-medium text-gray-700 mb-1.5">{icon} {label}</label>
+    <input name={name} autoComplete={autoComplete} {...props} className={`w-full px-4 py-3 border-2 rounded-xl focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 outline-none transition-all ${error ? 'border-red-300 bg-red-50' : 'border-gray-200 bg-gray-50 focus:bg-white'}`} />
+    {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
+  </div>
+);
+
 export default function MyLawBox() {
   const { user: authUser, loading, signUp, signIn, signOut } = useAuth();
   const [lang, setLang] = useState('en');
@@ -302,13 +311,7 @@ export default function MyLawBox() {
   // ============================================
   // COMPONENTS
   // ============================================
-  const Input = ({ label, error, icon, autoComplete, name, ...props }) => (
-    <div>
-      <label className="block text-sm font-medium text-gray-700 mb-1.5">{icon} {label}</label>
-      <input name={name} autoComplete={autoComplete} {...props} className={`w-full px-4 py-3 border-2 rounded-xl focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 outline-none transition-all ${error ? 'border-red-300 bg-red-50' : 'border-gray-200 bg-gray-50 focus:bg-white'}`} />
-      {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
-    </div>
-  );
+  };
 
   const BottomNav = () => (
     <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2 z-40">
