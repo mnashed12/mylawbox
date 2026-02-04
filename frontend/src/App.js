@@ -1,9 +1,13 @@
 import React from 'react';
-import MyLawBox from './MyLawBox';
+// Original MyLawBox app saved in MyLawBox.backup.jsx - do not delete!
+// import MyLawBox from './MyLawBox';
+import Home from './Home';
 import './App.css';
 
 function App() {
-  return <MyLawBox />;
+  // To restore the original app, uncomment MyLawBox and comment out Home
+  // return <MyLawBox />;
+  return <Home />;
 }
 
 export default App;
