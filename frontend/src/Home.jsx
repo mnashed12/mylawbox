@@ -29,7 +29,7 @@ export default function Home({ onNavigateContact }) {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
-            <div className="text-3xl font-bold text-slate-900" style={{ fontFamily: 'Fraunces, serif' }}>LawBOX</div>
+            <div className="text-3xl font-bold text-slate-900" style={{ fontFamily: 'Space Grotesk, -apple-system, sans-serif', letterSpacing: '-0.01em' }}>LawBOX</div>
             
             <div className="hidden md:flex items-center gap-8">
               <a href="#how-it-works" className="text-sm font-medium text-slate-600 hover:text-purple-600 transition-colors">How it Works</a>
@@ -758,7 +758,7 @@ export default function Home({ onNavigateContact }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-4 gap-12 mb-12">
             <div>
-              <div className="text-2xl font-bold text-white mb-4" style={{ fontFamily: 'Fraunces, serif' }}>LawBOX</div>
+              <div className="text-2xl font-bold text-white mb-4" style={{ fontFamily: 'Space Grotesk, -apple-system, sans-serif', letterSpacing: '-0.01em' }}>LawBOX</div>
               <p className="text-sm text-slate-400 mb-6">
                 Scale your practice, eliminate the bottlenecks
               </p>

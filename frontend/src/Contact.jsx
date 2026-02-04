@@ -60,7 +60,7 @@ export default function Contact({ onNavigateHome }) {
             <button 
               onClick={onNavigateHome}
               className="text-3xl font-bold text-slate-900 hover:text-purple-600 transition-colors" 
-              style={{ fontFamily: 'Fraunces, serif' }}
+              style={{ fontFamily: 'Space Grotesk, -apple-system, sans-serif', letterSpacing: '-0.01em' }}
             >
               LawBOX
             </button>
@@ -291,7 +291,7 @@ export default function Contact({ onNavigateHome }) {
       <footer className="bg-slate-900 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <div className="text-2xl font-bold text-white mb-4" style={{ fontFamily: 'Fraunces, serif' }}>LawBOX</div>
+            <div className="text-2xl font-bold text-white mb-4" style={{ fontFamily: 'Space Grotesk, -apple-system, sans-serif', letterSpacing: '-0.01em' }}>LawBOX</div>
             <p className="text-slate-400 mb-6">Scale your practice, eliminate the bottlenecks</p>
             <div className="text-sm text-slate-500">© 2026 LawBOX. All rights reserved.</div>
           </div>
